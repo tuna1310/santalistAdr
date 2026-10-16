@@ -1,0 +1,98 @@
+<resources>
+    <string name="app_name">SantaList</string>
+    <string name="app_slogan">Gifts for the right people, on time, on budget</string>
+
+    <string name="countdown_today">Today is Christmas! 🎅</string>
+    <string name="countdown_one">1 day until Christmas 🎄</string>
+    <string name="countdown_many">%d days until Christmas 🎄</string>
+
+    <!-- Tabs -->
+    <string name="tab_recipients">Recipients</string>
+    <string name="tab_timeline">Timeline</string>
+    <string name="tab_budget">Budget</string>
+
+    <!-- Actions -->
+    <string name="action_add_person">Add Person</string>
+    <string name="action_edit_person">Edit Recipient</string>
+    <string name="action_add_gift">Add Gift</string>
+    <string name="action_edit_gift">Edit Gift</string>
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_delete">Delete</string>
+
+    <!-- Status -->
+    <string name="status_idea">Idea</string>
+    <string name="status_ordered">Ordered</string>
+    <string name="status_received">Received</string>
+    <string name="status_wrapped">Wrapped</string>
+
+    <!-- Occasions -->
+    <string name="occasion_christmas">Christmas</string>
+    <string name="occasion_birthday">Birthday</string>
+    <string name="occasion_anniversary">Anniversary</string>
+    <string name="occasion_other">Other</string>
+
+    <!-- Budget -->
+    <string name="budget_total">Total Budget</string>
+    <string name="budget_planned">Planned</string>
+    <string name="budget_spent">Spent</string>
+    <string name="budget_remaining">Remaining</string>
+    <string name="budget_comparison_title">Budget &amp; Planned Comparison</string>
+    <string name="budget_breakdown_title">Breakdown by Recipient</string>
+    <string name="budget_pct_label">%d%% of budget</string>
+    <string name="budget_over_label">Over %s</string>
+    <string name="budget_remaining_label">Remaining %s</string>
+
+    <!-- Timeline -->
+    <string name="filter_all">All</string>
+    <string name="filter_pending">Pending</string>
+    <string name="filter_overdue">Overdue</string>
+    <string name="filter_completed">Completed</string>
+    <string name="overdue">Overdue</string>
+    <string name="completed">Completed</string>
+    <string name="no_due_date">No due date</string>
+    <string name="due_today">Today</string>
+    <string name="due_tomorrow">Tomorrow</string>
+    <string name="due_yesterday">Yesterday</string>
+
+    <!-- Empty States -->
+    <string name="empty_people_title">No recipients yet</string>
+    <string name="empty_people_desc">Add your loved ones to start tracking gifts and managing budgets.</string>
+    <string name="empty_people_action">Add First Recipient</string>
+
+    <string name="empty_timeline_title">No gifts yet</string>
+    <string name="empty_timeline_desc">The timeline organizes gifts by deadline so you never miss a moment.</string>
+    <string name="empty_timeline_action">Add Gift Now</string>
+    <string name="empty_filter_title">No matching gifts</string>
+    <string name="empty_filter_desc">No gifts found in this category.</string>
+
+    <string name="empty_budget_title">No budget data yet</string>
+    <string name="empty_budget_desc">Add recipients and set budgets to track your gift spending.</string>
+
+    <!-- Forms -->
+    <string name="recipient_name_label">Full name or nickname</string>
+    <string name="recipient_budget_label">Budget (VNĐ)</string>
+    <string name="recipient_notes_label">Preferences, notes (optional)</string>
+    <string name="gift_title_label">Gift title (required)</string>
+    <string name="gift_price_label">Price (VNĐ)</string>
+    <string name="gift_occasion_label">Occasion</string>
+    <string name="gift_status_label">Status</string>
+    <string name="gift_has_due_date">Set a deadline</string>
+    <string name="gift_remove_due_date">Remove Due Date</string>
+    <string name="gift_url_label">Store link (https://…)</string>
+    <string name="gift_notes_label">Notes (size, color, details…)</string>
+    <string name="equivalent_prefix">Equivalent: %s</string>
+
+    <!-- Validation -->
+    <string name="val_name_required">Please enter recipient name</string>
+    <string name="val_budget_invalid">Budget must be a positive number</string>
+    <string name="val_title_required">Please enter gift title</string>
+    <string name="val_price_invalid">Price must be a non-negative number</string>
+    <string name="val_recipient_required">Please select a recipient</string>
+
+    <!-- Confirmation Dialogs -->
+    <string name="confirm_delete_person_title">Delete Recipient</string>
+    <string name="confirm_delete_person_msg">Deleting \"%s\" will remove all associated gifts. This action cannot be undone.</string>
+    <string name="confirm_delete_gift_title">Delete Gift</string>
+    <string name="confirm_delete_gift_msg">Are you sure you want to delete gift \"%s\"?</string>
+</resources>
