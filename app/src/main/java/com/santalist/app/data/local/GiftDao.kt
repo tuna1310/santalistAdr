@@ -14,11 +14,17 @@ interface GiftDao {
     @Query("SELECT * FROM gifts")
     fun getAllGifts(): Flow<List<Gift>>
 
+    @Query("SELECT * FROM gifts WHERE year = :year")
+    fun getGiftsForYear(year: Int): Flow<List<Gift>>
+
     @Query("SELECT * FROM gifts WHERE personId = :personId")
     fun getGiftsForPerson(personId: String): Flow<List<Gift>>
 
     @Query("SELECT * FROM gifts WHERE id = :id")
     suspend fun getGiftById(id: String): Gift?
+
+    @Query("SELECT * FROM gifts WHERE year = :year AND (title LIKE '%' || :query || '%' OR note LIKE '%' || :query || '%')")
+    fun searchGifts(year: Int, query: String): Flow<List<Gift>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertGift(gift: Gift)
@@ -28,4 +34,7 @@ interface GiftDao {
 
     @Delete
     suspend fun deleteGift(gift: Gift)
+
+    @Query("DELETE FROM gifts")
+    suspend fun clearAll()
 }

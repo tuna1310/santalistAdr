@@ -16,9 +16,16 @@ interface PersonDao {
     @Query("SELECT * FROM people ORDER BY name ASC")
     fun getAllPeople(): Flow<List<Person>>
 
+    @Query("SELECT * FROM people WHERE year = :year ORDER BY name ASC")
+    fun getPeopleForYear(year: Int): Flow<List<Person>>
+
     @Transaction
     @Query("SELECT * FROM people ORDER BY name ASC")
     fun getAllPeopleWithGifts(): Flow<List<PersonWithGifts>>
+
+    @Transaction
+    @Query("SELECT * FROM people WHERE year = :year ORDER BY name ASC")
+    fun getPeopleWithGiftsForYear(year: Int): Flow<List<PersonWithGifts>>
 
     @Transaction
     @Query("SELECT * FROM people WHERE id = :id")
@@ -26,6 +33,9 @@ interface PersonDao {
 
     @Query("SELECT * FROM people WHERE id = :id")
     suspend fun getPersonById(id: String): Person?
+
+    @Query("SELECT * FROM people WHERE year = :year AND (name LIKE '%' || :query || '%' OR note LIKE '%' || :query || '%') ORDER BY name ASC")
+    fun searchPeople(year: Int, query: String): Flow<List<Person>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPerson(person: Person)
@@ -35,4 +45,7 @@ interface PersonDao {
 
     @Delete
     suspend fun deletePerson(person: Person)
+
+    @Query("DELETE FROM people")
+    suspend fun clearAll()
 }

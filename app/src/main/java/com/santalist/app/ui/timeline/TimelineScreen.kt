@@ -238,7 +238,7 @@ fun TimelineScreen(
             preselectedPersonId = null,
             availablePeople = allPeople,
             onDismiss = { showAddGiftSheet = false },
-            onSave = { title, price, status, dueDate, occasion, note, url, personId ->
+            onSave = { title, price, status, dueDate, occasion, note, url, personId, _ ->
                 viewModel.addGift(title, price, status, dueDate, occasion, note, url, personId)
             }
         )
@@ -250,7 +250,7 @@ fun TimelineScreen(
             preselectedPersonId = giftToEdit?.personId,
             availablePeople = allPeople,
             onDismiss = { giftToEdit = null },
-            onSave = { title, price, status, dueDate, occasion, note, url, personId ->
+            onSave = { title, price, status, dueDate, occasion, note, url, personId, _ ->
                 viewModel.updateGift(giftToEdit!!, title, price, status, dueDate, occasion, note, url, personId)
                 giftToEdit = null
             }

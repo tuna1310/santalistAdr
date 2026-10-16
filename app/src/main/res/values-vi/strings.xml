@@ -1,0 +1,167 @@
+<resources>
+    <string name="app_name">SantaList</string>
+    <string name="app_slogan">Quà cho đúng người, đúng lúc, chuẩn ngân sách</string>
+
+    <!-- Navigation Tabs -->
+    <string name="nav_home">Home</string>
+    <string name="nav_people">People</string>
+    <string name="nav_money">Money</string>
+    <string name="nav_messages">Messages</string>
+
+    <!-- Legacy Tab compatibility -->
+    <string name="tab_recipients">Người nhận</string>
+    <string name="tab_timeline">Dòng thời gian</string>
+    <string name="tab_budget">Ngân sách</string>
+
+    <!-- Screen Titles & Subtitles -->
+    <string name="home_title">Today</string>
+    <string name="people_title">People</string>
+    <string name="money_title">Money</string>
+    <string name="messages_title">Messages</string>
+
+    <string name="people_subtitle">%1$d người trong danh sách %2$d</string>
+    <string name="money_subtitle">%1$s %2$d</string>
+    <string name="messages_empty_subtitle">Không có gì cần bạn xử lý</string>
+    <string name="messages_active_subtitle_one">1 việc cần bạn xử lý</string>
+    <string name="messages_active_subtitle_many">%1$d việc cần bạn xử lý</string>
+
+    <!-- Mascot Pip Speech Bubbles -->
+    <string name="pip_bubble_home">Chào bạn! Ai là người đầu tiên trong danh sách?</string>
+    <string name="pip_bubble_people">Chưa có ai ở đây. Bạn muốn mua quà cho ai?</string>
+    <string name="pip_bubble_money">Chưa có chi tiêu. Hãy đặt ngân sách trước nhé?</string>
+    <string name="pip_bubble_messages">Mọi thứ êm đẹp. Không có gì cần bạn bận tâm — tận hưởng nhé!</string>
+
+    <!-- Mascot Pip Action Buttons -->
+    <string name="pip_action_add_first_person">Thêm người đầu tiên</string>
+    <string name="pip_action_set_budget">Đặt ngân sách</string>
+
+    <!-- Messages Screen Chips -->
+    <string name="chip_from_pip">⛄ Từ Pip</string>
+    <string name="chip_what_you_did">✍️ Bạn đã làm</string>
+    <string name="activity_empty">Chưa có hoạt động nào được ghi lại</string>
+
+    <!-- Countdown -->
+    <string name="countdown_today">Hôm nay là Giáng sinh! 🎅</string>
+    <string name="countdown_one">Còn 1 ngày đến Giáng sinh 🎄</string>
+    <string name="countdown_many">Còn %d ngày đến Giáng sinh 🎄</string>
+
+    <!-- Home Populated Sections -->
+    <string name="section_due_today">Đến hạn hôm nay</string>
+    <string name="section_overdue">Quá hạn</string>
+    <string name="section_coming_up">Sắp tới</string>
+    <string name="section_all_gifts">Tất cả quà</string>
+    <string name="overall_progress">%1$d trên %2$d quà đã sẵn sàng</string>
+
+    <!-- Sort Options -->
+    <string name="sort_by">Sắp xếp theo</string>
+    <string name="sort_name">Tên</string>
+    <string name="sort_budget">Ngân sách</string>
+    <string name="sort_due_date">Hạn gần nhất</string>
+
+    <!-- Actions -->
+    <string name="action_add_person">Thêm người</string>
+    <string name="action_edit_person">Sửa người nhận</string>
+    <string name="action_add_gift">Thêm quà</string>
+    <string name="action_edit_gift">Sửa quà</string>
+    <string name="action_save">Lưu</string>
+    <string name="action_cancel">Hủy</string>
+    <string name="action_delete">Xóa</string>
+    <string name="action_quick_add">Thêm nhanh</string>
+
+    <!-- Search & Year -->
+    <string name="search_hint">Tìm kiếm người, quà, ghi chú…</string>
+    <string name="year_add_option">+ Thêm năm / dịp mới</string>
+    <string name="dialog_add_season_title">Thêm mùa lễ</string>
+    <string name="dialog_year_label">Năm (vd: 2027)</string>
+    <string name="dialog_occasion_label">Dịp (vd: Giáng sinh)</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Cài đặt</string>
+    <string name="settings_currency">Tiền tệ</string>
+    <string name="settings_language">Ngôn ngữ</string>
+    <string name="settings_reminders">Nhắc lịch quà tặng (9:00 sáng)</string>
+    <string name="settings_theme">Giao diện</string>
+    <string name="theme_system">Hệ thống</string>
+    <string name="theme_light">Sáng</string>
+    <string name="theme_dark">Tối</string>
+    <string name="settings_export_json">Xuất dữ liệu (JSON)</string>
+    <string name="settings_load_demo">Tải dữ liệu mẫu</string>
+    <string name="settings_clear_data">Xóa toàn bộ dữ liệu</string>
+    <string name="json_copied_toast">Đã sao chép dữ liệu JSON vào bộ nhớ tạm</string>
+
+    <!-- Status -->
+    <string name="status_idea">Ý tưởng</string>
+    <string name="status_ordered">Đã đặt</string>
+    <string name="status_received">Đã nhận</string>
+    <string name="status_wrapped">Đã gói</string>
+
+    <!-- Occasions -->
+    <string name="occasion_christmas">Giáng sinh</string>
+    <string name="occasion_birthday">Sinh nhật</string>
+    <string name="occasion_anniversary">Kỷ niệm</string>
+    <string name="occasion_other">Khác</string>
+
+    <!-- Budget -->
+    <string name="budget_total">Tổng ngân sách</string>
+    <string name="budget_planned">Dự trù</string>
+    <string name="budget_spent">Đã chi</string>
+    <string name="budget_remaining">Còn lại</string>
+    <string name="budget_comparison_title">So sánh ngân sách và chi tiêu</string>
+    <string name="budget_breakdown_title">Chi tiết theo người</string>
+    <string name="budget_pct_label">%d%% ngân sách</string>
+    <string name="budget_over_label">Vượt %s</string>
+    <string name="budget_remaining_label">Còn lại %s</string>
+
+    <!-- Timeline & Filters -->
+    <string name="filter_all">Tất cả</string>
+    <string name="filter_pending">Đang chờ</string>
+    <string name="filter_overdue">Quá hạn</string>
+    <string name="filter_completed">Đã hoàn thành</string>
+    <string name="overdue">Quá hạn</string>
+    <string name="completed">Hoàn thành</string>
+    <string name="no_due_date">Không có hạn</string>
+    <string name="due_today">Hôm nay</string>
+    <string name="due_tomorrow">Ngày mai</string>
+    <string name="due_yesterday">Hôm qua</string>
+
+    <!-- Empty States -->
+    <string name="empty_people_title">Chưa có người nhận nào</string>
+    <string name="empty_people_desc">Thêm người thân yêu để bắt đầu theo dõi quà tặng và quản lý ngân sách.</string>
+    <string name="empty_people_action">Thêm người đầu tiên</string>
+    <string name="empty_timeline_title">Chưa có quà tặng nào</string>
+    <string name="empty_timeline_desc">Dòng thời gian sắp xếp quà theo hạn để bạn không bao giờ bỏ lỡ khoảnh khắc.</string>
+    <string name="empty_timeline_action">Thêm quà ngay</string>
+    <string name="empty_filter_title">Không tìm thấy quà phù hợp</string>
+    <string name="empty_filter_desc">Không có món quà nào trong mục này.</string>
+    <string name="empty_budget_title">Chưa có dữ liệu ngân sách</string>
+    <string name="empty_budget_desc">Thêm người và đặt ngân sách để theo dõi chi tiêu quà tặng.</string>
+
+    <!-- Forms -->
+    <string name="recipient_name_label">Tên hoặc biệt danh</string>
+    <string name="recipient_budget_label">Ngân sách</string>
+    <string name="recipient_notes_label">Ghi chú, sở thích (tùy chọn)</string>
+    <string name="gift_title_label">Tên món quà (bắt buộc)</string>
+    <string name="gift_price_label">Giá</string>
+    <string name="gift_occasion_label">Dịp</string>
+    <string name="gift_status_label">Trạng thái</string>
+    <string name="gift_has_due_date">Đặt thời hạn</string>
+    <string name="gift_remove_due_date">Xóa thời hạn</string>
+    <string name="gift_url_label">Link nơi bán (https://…)</string>
+    <string name="gift_notes_label">Ghi chú (kích thước, màu sắc, chi tiết…)</string>
+    <string name="equivalent_prefix">Tương đương: %s</string>
+
+    <!-- Validation -->
+    <string name="val_name_required">Vui lòng nhập tên người nhận</string>
+    <string name="val_budget_invalid">Ngân sách phải là số dương</string>
+    <string name="val_title_required">Vui lòng nhập tên món quà</string>
+    <string name="val_price_invalid">Giá tiền không được là số âm</string>
+    <string name="val_recipient_required">Vui lòng chọn người nhận</string>
+
+    <!-- Confirmation Dialogs -->
+    <string name="confirm_delete_person_title">Xóa người nhận</string>
+    <string name="confirm_delete_person_msg">Xóa \"%s\" sẽ đồng thời xóa toàn bộ quà của người này. Không thể hoàn tác.</string>
+    <string name="confirm_delete_gift_title">Xóa món quà</string>
+    <string name="confirm_delete_gift_msg">Bạn có chắc chắn muốn xóa món quà \"%s\"?</string>
+    <string name="confirm_clear_title">Xóa toàn bộ dữ liệu?</string>
+    <string name="confirm_clear_msg">Bạn có chắc muốn xóa vĩnh viễn toàn bộ người nhận, quà tặng và hoạt động? Không thể khôi phục.</string>
+</resources>

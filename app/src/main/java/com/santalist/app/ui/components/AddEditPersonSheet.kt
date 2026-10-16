@@ -1,6 +1,5 @@
 package com.santalist.app.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,10 +25,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.santalist.app.R
 import com.santalist.app.data.model.Person
 import com.santalist.app.domain.Formatters
 import com.santalist.app.ui.theme.SantaListTheme
@@ -38,14 +39,16 @@ import com.santalist.app.ui.theme.SantaListTheme
 @Composable
 fun AddEditPersonSheet(
     personToEdit: Person?,
+    currentYear: Int = 2026,
+    currency: String = "VND",
     onDismiss: () -> Unit,
-    onSave: (name: String, budget: Int, note: String) -> Unit
+    onSave: (name: String, budget: Int, note: String, year: Int) -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val colors = SantaListTheme.colors
 
     var name by remember { mutableStateOf(personToEdit?.name ?: "") }
-    var budgetText by remember { mutableStateOf(personToEdit?.budget?.toString() ?: "") }
+    var budgetText by remember { mutableStateOf(if (personToEdit != null && personToEdit.budget > 0) personToEdit.budget.toString() else "") }
     var note by remember { mutableStateOf(personToEdit?.note ?: "") }
     var isSubmitted by remember { mutableStateOf(false) }
 
@@ -55,22 +58,26 @@ fun AddEditPersonSheet(
         .replace(",", "")
         .replace(" ", "")
         .replace("₫", "")
+        .replace("$", "")
+        .replace("€", "")
+        .replace("£", "")
+        .replace("¥", "")
         .let { if (it.isEmpty()) 0 else it.toIntOrNull() }
 
-    val nameError: String? = if (isSubmitted && trimmedName.isEmpty()) "Please enter recipient name" else null
-    val budgetError: String? = if (isSubmitted && (parsedBudget == null || parsedBudget < 0)) "Budget must be a positive number" else null
+    val nameError: String? = if (isSubmitted && trimmedName.isEmpty()) stringResource(R.string.val_name_required) else null
+    val budgetError: String? = if (isSubmitted && (parsedBudget == null || parsedBudget < 0)) stringResource(R.string.val_budget_invalid) else null
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
         containerColor = colors.appCard,
-        shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
+        shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp)
-                .padding(bottom = 32.dp)
+                .padding(horizontal = 24.dp)
+                .padding(bottom = 36.dp)
                 .verticalScroll(rememberScrollState())
         ) {
             // Header bar
@@ -80,11 +87,11 @@ fun AddEditPersonSheet(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 TextButton(onClick = onDismiss) {
-                    Text(text = "Cancel", color = colors.textSecondary)
+                    Text(text = stringResource(R.string.action_cancel), color = colors.textSecondary)
                 }
 
                 Text(
-                    text = if (personToEdit != null) "Edit Recipient" else "Add Recipient",
+                    text = if (personToEdit != null) stringResource(R.string.action_edit_person) else stringResource(R.string.action_add_person),
                     color = colors.textPrimary,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Bold
@@ -94,13 +101,14 @@ fun AddEditPersonSheet(
                     onClick = {
                         isSubmitted = true
                         if (trimmedName.isNotEmpty() && parsedBudget != null && parsedBudget >= 0) {
-                            onSave(trimmedName, parsedBudget, note)
+                            val yearToSave = personToEdit?.year ?: currentYear
+                            onSave(trimmedName, parsedBudget, note, yearToSave)
                             onDismiss()
                         }
                     }
                 ) {
                     Text(
-                        text = if (personToEdit != null) "Save" else "Add",
+                        text = if (personToEdit != null) stringResource(R.string.action_save) else stringResource(R.string.action_save),
                         color = colors.pineGreen,
                         fontWeight = FontWeight.Bold
                     )
@@ -111,7 +119,7 @@ fun AddEditPersonSheet(
 
             // Name field
             Text(
-                text = "Full name or nickname",
+                text = stringResource(R.string.recipient_name_label),
                 color = colors.textSecondary,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Medium
@@ -125,6 +133,7 @@ fun AddEditPersonSheet(
                 isError = nameError != null,
                 supportingText = nameError?.let { { Text(it, color = colors.cranberryRed) } },
                 singleLine = true,
+                shape = RoundedCornerShape(14.dp),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = colors.pineGreen,
                     unfocusedBorderColor = colors.textSecondary.copy(alpha = 0.3f)
@@ -135,7 +144,7 @@ fun AddEditPersonSheet(
 
             // Budget field
             Text(
-                text = "Budget (VNĐ)",
+                text = "${stringResource(R.string.recipient_budget_label)} ($currency)",
                 color = colors.textSecondary,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Medium
@@ -152,10 +161,14 @@ fun AddEditPersonSheet(
                     if (budgetError != null) {
                         Text(budgetError, color = colors.cranberryRed)
                     } else if (parsedBudget != null && parsedBudget > 0) {
-                        Text("Equivalent: ${Formatters.formatVND(parsedBudget)}", color = colors.pineGreen)
+                        Text(
+                            stringResource(R.string.equivalent_prefix, Formatters.formatCurrency(parsedBudget, currency)),
+                            color = colors.pineGreen
+                        )
                     }
                 },
                 singleLine = true,
+                shape = RoundedCornerShape(14.dp),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = colors.pineGreen,
                     unfocusedBorderColor = colors.textSecondary.copy(alpha = 0.3f)
@@ -166,7 +179,7 @@ fun AddEditPersonSheet(
 
             // Notes field
             Text(
-                text = "Preferences, notes (optional)",
+                text = stringResource(R.string.recipient_notes_label),
                 color = colors.textSecondary,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Medium
@@ -179,6 +192,7 @@ fun AddEditPersonSheet(
                 placeholder = { Text("Gift ideas, favorite colors, sizes...") },
                 minLines = 3,
                 maxLines = 5,
+                shape = RoundedCornerShape(14.dp),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = colors.pineGreen,
                     unfocusedBorderColor = colors.textSecondary.copy(alpha = 0.3f)

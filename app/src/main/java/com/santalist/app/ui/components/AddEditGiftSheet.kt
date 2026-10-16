@@ -1,7 +1,6 @@
 package com.santalist.app.ui.components
 
 import android.app.DatePickerDialog
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -39,10 +38,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.santalist.app.R
 import com.santalist.app.data.model.Gift
 import com.santalist.app.data.model.GiftStatus
 import com.santalist.app.data.model.Occasion
@@ -57,6 +58,8 @@ fun AddEditGiftSheet(
     giftToEdit: Gift?,
     preselectedPersonId: String?,
     availablePeople: List<Person>,
+    currentYear: Int = 2026,
+    currency: String = "VND",
     onDismiss: () -> Unit,
     onSave: (
         title: String,
@@ -66,7 +69,8 @@ fun AddEditGiftSheet(
         occasion: Occasion,
         note: String,
         url: String,
-        personId: String
+        personId: String,
+        year: Int
     ) -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -77,7 +81,7 @@ fun AddEditGiftSheet(
         mutableStateOf(giftToEdit?.personId ?: preselectedPersonId ?: availablePeople.firstOrNull()?.id ?: "")
     }
     var title by remember { mutableStateOf(giftToEdit?.title ?: "") }
-    var priceText by remember { mutableStateOf(giftToEdit?.price?.toString() ?: "") }
+    var priceText by remember { mutableStateOf(if (giftToEdit != null && giftToEdit.price > 0) giftToEdit.price.toString() else "") }
     var status by remember { mutableStateOf(giftToEdit?.status ?: GiftStatus.IDEA) }
     var occasion by remember { mutableStateOf(giftToEdit?.occasion ?: Occasion.CHRISTMAS) }
     var hasDueDate by remember { mutableStateOf(giftToEdit?.dueDate != null) }
@@ -93,11 +97,15 @@ fun AddEditGiftSheet(
         .replace(",", "")
         .replace(" ", "")
         .replace("₫", "")
+        .replace("$", "")
+        .replace("€", "")
+        .replace("£", "")
+        .replace("¥", "")
         .let { if (it.isEmpty()) 0 else it.toIntOrNull() }
 
-    val titleError = if (isSubmitted && trimmedTitle.isEmpty()) "Please enter gift title" else null
-    val priceError = if (isSubmitted && (parsedPrice == null || parsedPrice < 0)) "Price must be a non-negative number" else null
-    val personError = if (isSubmitted && selectedPersonId.isEmpty()) "Please select a recipient" else null
+    val titleError = if (isSubmitted && trimmedTitle.isEmpty()) stringResource(R.string.val_title_required) else null
+    val priceError = if (isSubmitted && (parsedPrice == null || parsedPrice < 0)) stringResource(R.string.val_price_invalid) else null
+    val personError = if (isSubmitted && selectedPersonId.isEmpty()) stringResource(R.string.val_recipient_required) else null
 
     var personMenuExpanded by remember { mutableStateOf(false) }
     var occasionMenuExpanded by remember { mutableStateOf(false) }
@@ -109,13 +117,13 @@ fun AddEditGiftSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
         containerColor = colors.appCard,
-        shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
+        shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp)
-                .padding(bottom = 32.dp)
+                .padding(horizontal = 24.dp)
+                .padding(bottom = 36.dp)
                 .verticalScroll(rememberScrollState())
         ) {
             // Header bar
@@ -125,11 +133,11 @@ fun AddEditGiftSheet(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 TextButton(onClick = onDismiss) {
-                    Text(text = "Cancel", color = colors.textSecondary)
+                    Text(text = stringResource(R.string.action_cancel), color = colors.textSecondary)
                 }
 
                 Text(
-                    text = if (giftToEdit != null) "Edit Gift" else "Add Gift",
+                    text = if (giftToEdit != null) stringResource(R.string.action_edit_gift) else stringResource(R.string.action_add_gift),
                     color = colors.textPrimary,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Bold
@@ -139,6 +147,7 @@ fun AddEditGiftSheet(
                     onClick = {
                         isSubmitted = true
                         if (trimmedTitle.isNotEmpty() && parsedPrice != null && parsedPrice >= 0 && selectedPersonId.isNotEmpty()) {
+                            val yearToSave = giftToEdit?.year ?: selectedPerson?.year ?: currentYear
                             onSave(
                                 trimmedTitle,
                                 parsedPrice,
@@ -147,14 +156,15 @@ fun AddEditGiftSheet(
                                 occasion,
                                 note,
                                 url,
-                                selectedPersonId
+                                selectedPersonId,
+                                yearToSave
                             )
                             onDismiss()
                         }
                     }
                 ) {
                     Text(
-                        text = if (giftToEdit != null) "Save" else "Add",
+                        text = if (giftToEdit != null) stringResource(R.string.action_save) else stringResource(R.string.action_save),
                         color = colors.pineGreen,
                         fontWeight = FontWeight.Bold
                     )
@@ -176,6 +186,7 @@ fun AddEditGiftSheet(
                     value = selectedPerson?.name ?: "Select recipient",
                     onValueChange = {},
                     readOnly = true,
+                    shape = RoundedCornerShape(14.dp),
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickable { personMenuExpanded = true },
@@ -214,7 +225,7 @@ fun AddEditGiftSheet(
 
             // Title field
             Text(
-                text = "Gift title (required)",
+                text = stringResource(R.string.gift_title_label),
                 color = colors.textSecondary,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Medium
@@ -225,6 +236,7 @@ fun AddEditGiftSheet(
                 onValueChange = { title = it },
                 modifier = Modifier.fillMaxWidth(),
                 placeholder = { Text("e.g. Scarf, Books, Toys") },
+                shape = RoundedCornerShape(14.dp),
                 isError = titleError != null,
                 supportingText = titleError?.let { { Text(it, color = colors.cranberryRed) } },
                 singleLine = true,
@@ -238,7 +250,7 @@ fun AddEditGiftSheet(
 
             // Price field
             Text(
-                text = "Price (VNĐ)",
+                text = "${stringResource(R.string.gift_price_label)} ($currency)",
                 color = colors.textSecondary,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Medium
@@ -249,13 +261,17 @@ fun AddEditGiftSheet(
                 onValueChange = { priceText = it },
                 modifier = Modifier.fillMaxWidth(),
                 placeholder = { Text("0") },
+                shape = RoundedCornerShape(14.dp),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 isError = priceError != null,
                 supportingText = {
                     if (priceError != null) {
                         Text(priceError, color = colors.cranberryRed)
                     } else if (parsedPrice != null && parsedPrice > 0) {
-                        Text("Equivalent: ${Formatters.formatVND(parsedPrice)}", color = colors.pineGreen)
+                        Text(
+                            stringResource(R.string.equivalent_prefix, Formatters.formatCurrency(parsedPrice, currency)),
+                            color = colors.pineGreen
+                        )
                     }
                 },
                 singleLine = true,
@@ -273,7 +289,7 @@ fun AddEditGiftSheet(
                 Box(modifier = Modifier.weight(1f)) {
                     Column {
                         Text(
-                            text = "Occasion",
+                            text = stringResource(R.string.gift_occasion_label),
                             color = colors.textSecondary,
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Medium
@@ -283,6 +299,7 @@ fun AddEditGiftSheet(
                             value = occasion.title,
                             onValueChange = {},
                             readOnly = true,
+                            shape = RoundedCornerShape(14.dp),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable { occasionMenuExpanded = true },
@@ -315,7 +332,7 @@ fun AddEditGiftSheet(
                 Box(modifier = Modifier.weight(1f)) {
                     Column {
                         Text(
-                            text = "Status",
+                            text = stringResource(R.string.gift_status_label),
                             color = colors.textSecondary,
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Medium
@@ -325,6 +342,7 @@ fun AddEditGiftSheet(
                             value = status.title,
                             onValueChange = {},
                             readOnly = true,
+                            shape = RoundedCornerShape(14.dp),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable { statusMenuExpanded = true },
@@ -363,7 +381,7 @@ fun AddEditGiftSheet(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "Set a deadline",
+                    text = stringResource(R.string.gift_has_due_date),
                     color = colors.textPrimary,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Medium
@@ -371,7 +389,10 @@ fun AddEditGiftSheet(
                 Switch(
                     checked = hasDueDate,
                     onCheckedChange = { hasDueDate = it },
-                    colors = SwitchDefaults.colors(checkedThumbColor = colors.pineGreen, checkedTrackColor = colors.pineGreen.copy(alpha = 0.4f))
+                    colors = SwitchDefaults.colors(
+                        checkedThumbColor = colors.appCard,
+                        checkedTrackColor = colors.pineGreen
+                    )
                 )
             }
 
@@ -386,6 +407,7 @@ fun AddEditGiftSheet(
                         value = Formatters.formatDate(dueDateMillis),
                         onValueChange = {},
                         readOnly = true,
+                        shape = RoundedCornerShape(14.dp),
                         modifier = Modifier
                             .weight(1f)
                             .clickable {
@@ -413,7 +435,7 @@ fun AddEditGiftSheet(
                         onClick = { hasDueDate = false }
                     ) {
                         Icon(Icons.Default.Close, contentDescription = null, tint = colors.cranberryRed)
-                        Text("Remove", color = colors.cranberryRed, fontWeight = FontWeight.SemiBold)
+                        Text(stringResource(R.string.gift_remove_due_date), color = colors.cranberryRed, fontWeight = FontWeight.SemiBold)
                     }
                 }
             }
@@ -422,7 +444,7 @@ fun AddEditGiftSheet(
 
             // URL field
             Text(
-                text = "Store link (https://…)",
+                text = stringResource(R.string.gift_url_label),
                 color = colors.textSecondary,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Medium
@@ -433,6 +455,7 @@ fun AddEditGiftSheet(
                 onValueChange = { url = it },
                 modifier = Modifier.fillMaxWidth(),
                 placeholder = { Text("https://example.com/gift") },
+                shape = RoundedCornerShape(14.dp),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri),
                 singleLine = true,
                 colors = OutlinedTextFieldDefaults.colors(
@@ -445,7 +468,7 @@ fun AddEditGiftSheet(
 
             // Notes field
             Text(
-                text = "Notes (size, color, details…)",
+                text = stringResource(R.string.gift_notes_label),
                 color = colors.textSecondary,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Medium
@@ -456,6 +479,7 @@ fun AddEditGiftSheet(
                 onValueChange = { note = it },
                 modifier = Modifier.fillMaxWidth(),
                 placeholder = { Text("Additional information") },
+                shape = RoundedCornerShape(14.dp),
                 minLines = 3,
                 maxLines = 5,
                 colors = OutlinedTextFieldDefaults.colors(

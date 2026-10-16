@@ -19,7 +19,10 @@ data class SantaColors(
     val appBackground: Color,
     val appCard: Color,
     val textPrimary: Color,
-    val textSecondary: Color
+    val textSecondary: Color,
+    val pipPrimaryButton: Color = PipPrimaryButtonLight,
+    val pipBubbleBg: Color = PipBubbleBgLight,
+    val pipNavSelectedChip: Color = PipNavSelectedChipLight
 )
 
 val LocalSantaColors = staticCompositionLocalOf {
@@ -28,10 +31,13 @@ val LocalSantaColors = staticCompositionLocalOf {
         cranberryRed = CranberryRedLight,
         warmGold = WarmGoldLight,
         statusOrange = StatusOrangeLight,
-        appBackground = AppBackgroundLight,
-        appCard = AppCardLight,
-        textPrimary = TextPrimaryLight,
-        textSecondary = TextSecondaryLight
+        appBackground = PipWarmBackgroundLight,
+        appCard = PipCardLight,
+        textPrimary = PipTextPrimaryLight,
+        textSecondary = PipTextSecondaryLight,
+        pipPrimaryButton = PipPrimaryButtonLight,
+        pipBubbleBg = PipBubbleBgLight,
+        pipNavSelectedChip = PipNavSelectedChipLight
     )
 }
 
@@ -40,10 +46,13 @@ private val LightSantaColors = SantaColors(
     cranberryRed = CranberryRedLight,
     warmGold = WarmGoldLight,
     statusOrange = StatusOrangeLight,
-    appBackground = AppBackgroundLight,
-    appCard = AppCardLight,
-    textPrimary = TextPrimaryLight,
-    textSecondary = TextSecondaryLight
+    appBackground = PipWarmBackgroundLight,
+    appCard = PipCardLight,
+    textPrimary = PipTextPrimaryLight,
+    textSecondary = PipTextSecondaryLight,
+    pipPrimaryButton = PipPrimaryButtonLight,
+    pipBubbleBg = PipBubbleBgLight,
+    pipNavSelectedChip = PipNavSelectedChipLight
 )
 
 private val DarkSantaColors = SantaColors(
@@ -51,40 +60,43 @@ private val DarkSantaColors = SantaColors(
     cranberryRed = CranberryRedDark,
     warmGold = WarmGoldDark,
     statusOrange = StatusOrangeDark,
-    appBackground = AppBackgroundDark,
-    appCard = AppCardDark,
-    textPrimary = TextPrimaryDark,
-    textSecondary = TextSecondaryDark
+    appBackground = PipWarmBackgroundDark,
+    appCard = PipCardDark,
+    textPrimary = PipTextPrimaryDark,
+    textSecondary = PipTextSecondaryDark,
+    pipPrimaryButton = PipPrimaryButtonDark,
+    pipBubbleBg = PipBubbleBgDark,
+    pipNavSelectedChip = PipNavSelectedChipDark
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = PineGreenLight,
+    primary = PipPrimaryButtonLight,
     onPrimary = Color.White,
-    primaryContainer = PineGreenLight.copy(alpha = 0.12f),
-    onPrimaryContainer = PineGreenLight,
+    primaryContainer = PipNavSelectedChipLight,
+    onPrimaryContainer = PipTextPrimaryLight,
     secondary = WarmGoldLight,
-    background = AppBackgroundLight,
-    onBackground = TextPrimaryLight,
-    surface = AppCardLight,
-    onSurface = TextPrimaryLight,
-    surfaceVariant = AppBackgroundLight,
-    onSurfaceVariant = TextSecondaryLight,
+    background = PipWarmBackgroundLight,
+    onBackground = PipTextPrimaryLight,
+    surface = PipCardLight,
+    onSurface = PipTextPrimaryLight,
+    surfaceVariant = PipWarmBackgroundLight,
+    onSurfaceVariant = PipTextSecondaryLight,
     error = CranberryRedLight,
     onError = Color.White
 )
 
 private val DarkColorScheme = darkColorScheme(
-    primary = PineGreenDark,
-    onPrimary = Color.Black,
-    primaryContainer = PineGreenDark.copy(alpha = 0.2f),
-    onPrimaryContainer = PineGreenDark,
+    primary = PipPrimaryButtonDark,
+    onPrimary = PipTextPrimaryDark,
+    primaryContainer = PipNavSelectedChipDark,
+    onPrimaryContainer = PipTextPrimaryDark,
     secondary = WarmGoldDark,
-    background = AppBackgroundDark,
-    onBackground = TextPrimaryDark,
-    surface = AppCardDark,
-    onSurface = TextPrimaryDark,
-    surfaceVariant = AppBackgroundDark,
-    onSurfaceVariant = TextSecondaryDark,
+    background = PipWarmBackgroundDark,
+    onBackground = PipTextPrimaryDark,
+    surface = PipCardDark,
+    onSurface = PipTextPrimaryDark,
+    surfaceVariant = PipWarmBackgroundDark,
+    onSurfaceVariant = PipTextSecondaryDark,
     error = CranberryRedDark,
     onError = Color.Black
 )

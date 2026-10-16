@@ -42,10 +42,14 @@ import com.santalist.app.ui.theme.SantaListTheme
 @Composable
 fun StatusChip(
     status: GiftStatus,
-    onNext: () -> Unit,
-    onSelect: (GiftStatus) -> Unit,
-    modifier: Modifier = Modifier
+    onNext: () -> Unit = {},
+    onSelect: (GiftStatus) -> Unit = {},
+    modifier: Modifier = Modifier,
+    onStatusClick: (() -> Unit)? = null,
+    onStatusSelected: ((GiftStatus) -> Unit)? = null
 ) {
+    val handleNext = onStatusClick ?: onNext
+    val handleSelect = onStatusSelected ?: onSelect
     var expanded by remember { mutableStateOf(false) }
     val colors = SantaListTheme.colors
 
@@ -70,7 +74,7 @@ fun StatusChip(
                 .background(statusColor.copy(alpha = 0.15f))
                 .border(1.dp, statusColor.copy(alpha = 0.35f), CircleShape)
                 .combinedClickable(
-                    onClick = onNext,
+                    onClick = handleNext,
                     onLongClick = { expanded = true }
                 )
                 .padding(horizontal = 10.dp, vertical = 5.dp)
@@ -132,7 +136,7 @@ fun StatusChip(
                     },
                     onClick = {
                         expanded = false
-                        onSelect(option)
+                        handleSelect(option)
                     }
                 )
             }

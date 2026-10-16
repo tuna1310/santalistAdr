@@ -29,7 +29,8 @@ data class Gift(
     val occasion: Occasion = Occasion.CHRISTMAS,
     val note: String = "",
     val url: String = "",
-    val personId: String
+    val personId: String,
+    val year: Int = 2026
 ) {
     fun isOverdue(referenceTimeMillis: Long = System.currentTimeMillis()): Boolean {
         if (dueDate == null) return false

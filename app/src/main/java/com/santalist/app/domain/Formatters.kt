@@ -8,24 +8,76 @@ import java.util.Date
 import java.util.Locale
 
 object Formatters {
-    private val currencyFormat: DecimalFormat by lazy {
+    private val vndFormat: DecimalFormat by lazy {
         val symbols = DecimalFormatSymbols(Locale("vi", "VN")).apply {
             groupingSeparator = '.'
             decimalSeparator = ','
         }
         DecimalFormat("#,##0 ₫", symbols).apply {
-            negativePrefix = "-#"
-            negativeSuffix = " ₫"
-            // For custom pattern like -1.250.000 ₫
             applyPattern("#,##0 ₫;-#,##0 ₫")
+        }
+    }
+
+    private val usdFormat: DecimalFormat by lazy {
+        val symbols = DecimalFormatSymbols(Locale.US).apply {
+            groupingSeparator = ','
+            decimalSeparator = '.'
+        }
+        DecimalFormat("$#,##0", symbols).apply {
+            applyPattern("$#,##0;-$#,##0")
+        }
+    }
+
+    private val eurFormat: DecimalFormat by lazy {
+        val symbols = DecimalFormatSymbols(Locale.GERMANY).apply {
+            groupingSeparator = '.'
+            decimalSeparator = ','
+        }
+        DecimalFormat("€#,##0", symbols).apply {
+            applyPattern("€#,##0;-€#,##0")
+        }
+    }
+
+    private val gbpFormat: DecimalFormat by lazy {
+        val symbols = DecimalFormatSymbols(Locale.UK).apply {
+            groupingSeparator = ','
+            decimalSeparator = '.'
+        }
+        DecimalFormat("£#,##0", symbols).apply {
+            applyPattern("£#,##0;-£#,##0")
+        }
+    }
+
+    private val jpyFormat: DecimalFormat by lazy {
+        val symbols = DecimalFormatSymbols(Locale.JAPAN).apply {
+            groupingSeparator = ','
+            decimalSeparator = '.'
+        }
+        DecimalFormat("¥#,##0", symbols).apply {
+            applyPattern("¥#,##0;-¥#,##0")
         }
     }
 
     private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale("vi", "VN"))
     private val dayMonthFormat = SimpleDateFormat("dd/MM", Locale("vi", "VN"))
+    private val headerDateFormat = SimpleDateFormat("EEEE, d MMMM", Locale.ENGLISH)
 
     fun formatVND(amount: Int): String {
-        return currencyFormat.format(amount)
+        return vndFormat.format(amount)
+    }
+
+    fun formatCurrency(amount: Int, currency: String = "VND"): String {
+        return when (currency.uppercase()) {
+            "USD" -> usdFormat.format(amount)
+            "EUR" -> eurFormat.format(amount)
+            "GBP" -> gbpFormat.format(amount)
+            "JPY" -> jpyFormat.format(amount)
+            else -> vndFormat.format(amount)
+        }
+    }
+
+    fun formatHeaderDate(timeMillis: Long = System.currentTimeMillis()): String {
+        return headerDateFormat.format(Date(timeMillis))
     }
 
     fun formatDate(timeMillis: Long): String {
@@ -50,15 +102,28 @@ object Formatters {
         }
     }
 
-    fun formatCompactVND(value: Int): String {
+    fun formatCompactCurrency(value: Int, currency: String = "VND"): String {
+        val prefix = when (currency.uppercase()) {
+            "USD" -> "$"
+            "EUR" -> "€"
+            "GBP" -> "£"
+            "JPY" -> "¥"
+            else -> ""
+        }
+        val suffix = if (currency.uppercase() == "VND") " ₫" else ""
+
         return when {
             value >= 1_000_000 -> {
                 val m = value.toDouble() / 1_000_000.0
-                String.format(Locale.US, "%.1fM", m)
+                String.format(Locale.US, "%s%.1fM%s", prefix, m, suffix)
             }
-            value >= 1_000 -> "${value / 1_000}k"
-            else -> value.toString()
+            value >= 1_000 -> "${prefix}${value / 1_000}k$suffix"
+            else -> "$prefix$value$suffix"
         }
+    }
+
+    fun formatCompactVND(value: Int): String {
+        return formatCompactCurrency(value, "VND")
     }
 
     private fun isSameDay(cal1: Calendar, cal2: Calendar): Boolean {

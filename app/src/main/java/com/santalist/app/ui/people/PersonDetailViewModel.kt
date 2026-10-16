@@ -69,7 +69,8 @@ class PersonDetailViewModel(
                 occasion = occasion,
                 note = note,
                 url = url,
-                personId = personId
+                personId = personId,
+                year = personWithGifts.value?.person?.year ?: 2026
             )
             giftDao.insertGift(gift)
             val recipient = personWithGifts.value?.person?.name ?: ""

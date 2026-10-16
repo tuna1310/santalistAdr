@@ -10,5 +10,6 @@ data class Person(
     val id: String = UUID.randomUUID().toString(),
     val name: String,
     val budget: Int = 0,
-    val note: String = ""
+    val note: String = "",
+    val year: Int = 2026
 )

@@ -334,7 +334,7 @@ fun PersonDetailScreen(
         AddEditPersonSheet(
             personToEdit = pwg.person,
             onDismiss = { showEditPersonSheet = false },
-            onSave = { name, budget, note ->
+            onSave = { name, budget, note, _ ->
                 viewModel.updatePerson(name, budget, note)
             }
         )
@@ -346,7 +346,7 @@ fun PersonDetailScreen(
             preselectedPersonId = pwg.person.id,
             availablePeople = listOf(pwg.person),
             onDismiss = { showAddGiftSheet = false },
-            onSave = { title, price, status, dueDate, occasion, note, url, _ ->
+            onSave = { title, price, status, dueDate, occasion, note, url, _, _ ->
                 viewModel.addGift(title, price, status, dueDate, occasion, note, url)
             }
         )
@@ -358,7 +358,7 @@ fun PersonDetailScreen(
             preselectedPersonId = pwg.person.id,
             availablePeople = listOf(pwg.person),
             onDismiss = { giftToEdit = null },
-            onSave = { title, price, status, dueDate, occasion, note, url, pId ->
+            onSave = { title, price, status, dueDate, occasion, note, url, pId, _ ->
                 viewModel.updateGift(giftToEdit!!, title, price, status, dueDate, occasion, note, url, pId)
                 giftToEdit = null
             }

@@ -2,14 +2,61 @@
     <string name="app_name">SantaList</string>
     <string name="app_slogan">Gifts for the right people, on time, on budget</string>
 
+    <!-- Navigation Tabs -->
+    <string name="nav_home">Home</string>
+    <string name="nav_people">People</string>
+    <string name="nav_money">Money</string>
+    <string name="nav_messages">Messages</string>
+
+    <!-- Legacy Tab compatibility -->
+    <string name="tab_recipients">Recipients</string>
+    <string name="tab_timeline">Timeline</string>
+    <string name="tab_budget">Budget</string>
+
+    <!-- Screen Titles & Subtitles -->
+    <string name="home_title">Today</string>
+    <string name="people_title">People</string>
+    <string name="money_title">Money</string>
+    <string name="messages_title">Messages</string>
+
+    <string name="people_subtitle">%1$d on your %2$d list</string>
+    <string name="money_subtitle">%1$s %2$d</string>
+    <string name="messages_empty_subtitle">Nothing needs you right now</string>
+    <string name="messages_active_subtitle_one">1 thing needs you</string>
+    <string name="messages_active_subtitle_many">%1$d things need you</string>
+
+    <!-- Mascot Pip Speech Bubbles -->
+    <string name="pip_bubble_home">Hi friend! Who\'s first on your list?</string>
+    <string name="pip_bubble_people">No one here yet. Who do you buy for?</string>
+    <string name="pip_bubble_money">No spending yet. Shall we set a budget first?</string>
+    <string name="pip_bubble_messages">All quiet. Nothing needs you — enjoy it!</string>
+
+    <!-- Mascot Pip Action Buttons -->
+    <string name="pip_action_add_first_person">Add the first person</string>
+    <string name="pip_action_set_budget">Set a budget</string>
+
+    <!-- Messages Screen Chips -->
+    <string name="chip_from_pip">⛄ From Pip</string>
+    <string name="chip_what_you_did">✍️ What you did</string>
+    <string name="activity_empty">No activity recorded yet</string>
+
+    <!-- Countdown -->
     <string name="countdown_today">Today is Christmas! 🎅</string>
     <string name="countdown_one">1 day until Christmas 🎄</string>
     <string name="countdown_many">%d days until Christmas 🎄</string>
 
-    <!-- Tabs -->
-    <string name="tab_recipients">Recipients</string>
-    <string name="tab_timeline">Timeline</string>
-    <string name="tab_budget">Budget</string>
+    <!-- Home Populated Sections -->
+    <string name="section_due_today">Due today</string>
+    <string name="section_overdue">Overdue</string>
+    <string name="section_coming_up">Coming up</string>
+    <string name="section_all_gifts">All Gifts</string>
+    <string name="overall_progress">%1$d of %2$d gifts ready</string>
+
+    <!-- Sort Options -->
+    <string name="sort_by">Sort by</string>
+    <string name="sort_name">Name</string>
+    <string name="sort_budget">Budget</string>
+    <string name="sort_due_date">Next due date</string>
 
     <!-- Actions -->
     <string name="action_add_person">Add Person</string>
@@ -19,6 +66,28 @@
     <string name="action_save">Save</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_delete">Delete</string>
+    <string name="action_quick_add">Quick Add</string>
+
+    <!-- Search & Year -->
+    <string name="search_hint">Search people, gifts, notes…</string>
+    <string name="year_add_option">+ Add Year / Occasion</string>
+    <string name="dialog_add_season_title">Add Season</string>
+    <string name="dialog_year_label">Year (e.g. 2027)</string>
+    <string name="dialog_occasion_label">Occasion (e.g. Christmas)</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_currency">Currency</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_reminders">Gift Reminders (9:00 AM)</string>
+    <string name="settings_theme">Theme</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="settings_export_json">Export Data (JSON)</string>
+    <string name="settings_load_demo">Load Sample Data</string>
+    <string name="settings_clear_data">Delete All Data</string>
+    <string name="json_copied_toast">Data copied to clipboard as JSON</string>
 
     <!-- Status -->
     <string name="status_idea">Idea</string>
@@ -43,7 +112,7 @@
     <string name="budget_over_label">Over %s</string>
     <string name="budget_remaining_label">Remaining %s</string>
 
-    <!-- Timeline -->
+    <!-- Timeline & Filters -->
     <string name="filter_all">All</string>
     <string name="filter_pending">Pending</string>
     <string name="filter_overdue">Overdue</string>
@@ -59,22 +128,20 @@
     <string name="empty_people_title">No recipients yet</string>
     <string name="empty_people_desc">Add your loved ones to start tracking gifts and managing budgets.</string>
     <string name="empty_people_action">Add First Recipient</string>
-
     <string name="empty_timeline_title">No gifts yet</string>
     <string name="empty_timeline_desc">The timeline organizes gifts by deadline so you never miss a moment.</string>
     <string name="empty_timeline_action">Add Gift Now</string>
     <string name="empty_filter_title">No matching gifts</string>
     <string name="empty_filter_desc">No gifts found in this category.</string>
-
     <string name="empty_budget_title">No budget data yet</string>
     <string name="empty_budget_desc">Add recipients and set budgets to track your gift spending.</string>
 
     <!-- Forms -->
     <string name="recipient_name_label">Full name or nickname</string>
-    <string name="recipient_budget_label">Budget (VNĐ)</string>
+    <string name="recipient_budget_label">Budget</string>
     <string name="recipient_notes_label">Preferences, notes (optional)</string>
     <string name="gift_title_label">Gift title (required)</string>
-    <string name="gift_price_label">Price (VNĐ)</string>
+    <string name="gift_price_label">Price</string>
     <string name="gift_occasion_label">Occasion</string>
     <string name="gift_status_label">Status</string>
     <string name="gift_has_due_date">Set a deadline</string>
@@ -95,4 +162,6 @@
     <string name="confirm_delete_person_msg">Deleting \"%s\" will remove all associated gifts. This action cannot be undone.</string>
     <string name="confirm_delete_gift_title">Delete Gift</string>
     <string name="confirm_delete_gift_msg">Are you sure you want to delete gift \"%s\"?</string>
+    <string name="confirm_clear_title">Delete All Data?</string>
+    <string name="confirm_clear_msg">Are you sure you want to delete all data? This cannot be undone.</string>
 </resources>
